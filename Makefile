@@ -4,24 +4,22 @@ $(shell mkdir $(OUT_DIR) 2>/dev/null)
 
 MAINFILE = resume
 
-PDFLATEX = pdflatex
-PDFLATEX_FLAGS := -halt-on-error -output-directory $(OUT_DIR)
+COMPILER = latexmk
+COMPILER_FLAGS := -output-directory=$(OUT_DIR)
 BIBTEX = bibtex
 
+.PHONY: all
+all: $(MAINFILE).pdf ## Compile the LaTeX project. This will build a PDF document.
+
 $(MAINFILE).pdf:
-	$(PDFLATEX) $(PDFLATEX_FLAGS) $(MAINFILE)
-	# $(PDFLATEX) $(PDFLATEX_FLAGS) $(MAINFILE)
+	$(COMPILER) $(COMPILER_FLAGS) $(MAINFILE)
 
 .PHONY: show
-show:
+show: ## Open the resulting PDF
 	open ./$(OUT_DIR)/$(MAINFILE).pdf
 
-.PHONY: link
-link:
-	./link-songs.sh
-
 .PHONY: clean
-clean:
+clean: ## Remove LaTeX build files
 	-rm -f *.aux
 	-rm -f *.log
 	-rm -f *.toc
@@ -32,8 +30,12 @@ clean:
 	-rm -f *.fdb_latexmk
 
 .PHONY: cleanall
-cleanall: clean
+cleanall: clean ## Remove the entire output (build) directory
 	-rm -f *.pdf
 	-rm -f *.ps
 	-rm -f *.dvi
 	-rm -rf $(OUT_DIR)
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
