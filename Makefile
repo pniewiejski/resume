@@ -20,20 +20,10 @@ show: ## Open the resulting PDF
 
 .PHONY: clean
 clean: ## Remove LaTeX build files
-	-rm -f *.aux
-	-rm -f *.log
-	-rm -f *.toc
-	-rm -f *.bbl
-	-rm -f *.blg
-	-rm -f *.out
-	-rm -f *.fls
-	-rm -f *.fdb_latexmk
+	-rm -f $(addprefix $(OUT_DIR)/*., aux log toc bbl blg out fls fdb_latexmk ps dvi bcf xml)
 
 .PHONY: cleanall
-cleanall: clean ## Remove the entire output (build) directory
-	-rm -f *.pdf
-	-rm -f *.ps
-	-rm -f *.dvi
+cleanall: ## Remove the entire output (build) directory
 	-rm -rf $(OUT_DIR)
 
 .PHONY: help
