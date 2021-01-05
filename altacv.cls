@@ -109,6 +109,7 @@
 \RequirePackage{enumitem}
 \setlist{leftmargin=*,labelsep=0.5em,nosep,itemsep=0.25\baselineskip,after=\vskip0.25\baselineskip}
 \setlist[itemize]{label=\itemmarker}
+\setlist[itemize, 2]{label=\small$\circ$} % PN: Use circ (empty bulletpoint) for nested items
 \RequirePackage{graphicx}
 \RequirePackage{etoolbox}
 \RequirePackage{dashrule}
