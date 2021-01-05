@@ -8,6 +8,13 @@ COMPILER = latexmk
 COMPILER_FLAGS := -output-directory=$(OUT_DIR)
 BIBTEX = bibtex
 
+PLATFORM := $(shell uname -s)
+ifeq ($(PLATFORM), Linux)
+	OPEN = xdg-open
+else
+	OPEN = open
+endif
+
 .PHONY: all
 all: $(MAINFILE).pdf ## Compile the LaTeX project. This will build a PDF document.
 
@@ -16,7 +23,7 @@ $(MAINFILE).pdf:
 
 .PHONY: show
 show: ## Open the resulting PDF
-	open ./$(OUT_DIR)/$(MAINFILE).pdf
+	$(OPEN) ./$(OUT_DIR)/$(MAINFILE).pdf
 
 .PHONY: clean
 clean: ## Remove LaTeX build files
