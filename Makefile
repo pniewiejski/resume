@@ -5,7 +5,7 @@ $(shell mkdir $(OUT_DIR) 2>/dev/null)
 MAINFILE = resume
 
 COMPILER = latexmk
-COMPILER_FLAGS := -output-directory=$(OUT_DIR)
+COMPILER_FLAGS := -output-directory=$(OUT_DIR) -pdf
 BIBTEX = bibtex
 
 PLATFORM := $(shell uname -s)
